@@ -3,6 +3,7 @@ import NextAuth from 'next-auth';
 // Edge-compatible auth config (no Prisma, no bcrypt)
 // Used only for middleware session checks
 export const authConfig = {
+  secret: process.env.AUTH_SECRET,
   providers: [], // Providers are only needed in the full auth config
   pages: {
     signIn: '/', // Redirect to Home if authentication fails
