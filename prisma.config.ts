@@ -12,6 +12,6 @@ export default defineConfig({
   engine: "classic",
   datasource: {
     // Use env var if available, otherwise use a placeholder for prisma generate
-    url: process.env.DATABASE_URL || "file:./dev.db",
+    url: process.env.DATABASE_URL,
   },
 });
