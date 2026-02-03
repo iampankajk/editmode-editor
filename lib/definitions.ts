@@ -26,6 +26,7 @@ export type SignupState = {
     password?: string[];
   };
   message?: string | null;
+  success?: boolean;
 };
 
 export type LoginState = {

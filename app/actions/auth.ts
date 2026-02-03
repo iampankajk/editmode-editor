@@ -4,7 +4,6 @@ import { z } from 'zod';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { SignupSchema, SignupState } from '@/lib/definitions';
-import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
@@ -39,7 +38,7 @@ export async function registerUser(prevState: SignupState, formData: FormData) {
     };
   }
 
-  redirect('/login');
+  return { success: true };
 }
 
 export async function authenticate(
