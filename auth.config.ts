@@ -5,34 +5,17 @@ import NextAuth from 'next-auth';
 export const authConfig = {
   providers: [], // Providers are only needed in the full auth config
   pages: {
-    signIn: '/login',
+    signIn: '/', // Redirect to Home if authentication fails
   },
   callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
-      const isLoggedIn = !!auth?.user;
-      const pathname = nextUrl.pathname;
-      
-      // Demo route is always allowed
-      if (pathname.startsWith('/demo')) {
-        return true;
-      }
-      
-      const isProtectedRoute = pathname.startsWith('/projects') || pathname.startsWith('/editor');
-      
-      if (isProtectedRoute) {
-        if (isLoggedIn) return true;
-        return false; // Redirect to signIn page
-      }
-      
-      return true;
-    },
-    async session({ session, token }) {
+    // Authorized callback removed to let middleware handle redirects manually
+    async session({ session, token }: { session: any; token: any }) {
       if (token?.sub && session.user) {
         session.user.id = token.sub;
       }
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user: any }) {
       if (user) {
         token.sub = user.id;
       }

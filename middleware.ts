@@ -1,9 +1,18 @@
-import { authMiddleware as auth } from '@/auth.config';
 import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-export default auth((req) => {
-  const isLoggedIn = !!req.auth;
-  const pathname = req.nextUrl.pathname;
+const cookieNames = [
+  'next-auth.session-token',
+  '__Secure-next-auth.session-token',
+  'authjs.session-token',
+  '__Secure-authjs.session-token',
+];
+
+export function middleware(request: NextRequest) {
+  // Check for session token in cookies
+  const hasSession = cookieNames.some((name) => request.cookies.has(name));
+  const isLoggedIn = hasSession;
+  const { pathname } = request.nextUrl;
   
   // Demo route is always allowed without auth
   if (pathname.startsWith('/demo')) {
@@ -14,11 +23,11 @@ export default auth((req) => {
 
   // Redirect unauthenticated users from protected routes to home page
   if (isProtectedRoute && !isLoggedIn) {
-    return NextResponse.redirect(new URL('/', req.nextUrl));
+    return NextResponse.redirect(new URL('/', request.nextUrl));
   }
 
   return NextResponse.next();
-});
+}
 
 export const config = {
   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
