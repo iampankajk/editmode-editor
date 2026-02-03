@@ -25,6 +25,17 @@ export async function registerUser(prevState: SignupState, formData: FormData) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
+    // Check if user already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return {
+        message: 'Account with this email already exists.',
+      };
+    }
+
     await prisma.user.create({
       data: {
         name,
@@ -32,13 +43,14 @@ export async function registerUser(prevState: SignupState, formData: FormData) {
         password: hashedPassword,
       },
     });
+    
+    return { success: true };
   } catch (error) {
+    console.error('Signup error:', error);
     return {
-      message: 'Database Error: Failed to Create User. Email might be in use.',
+      message: 'Something went wrong. Please try again.',
     };
   }
-
-  return { success: true };
 }
 
 export async function authenticate(

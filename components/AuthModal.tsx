@@ -100,6 +100,12 @@ export const AuthModal: FC<AuthModalProps> = ({ isOpen, onClose, initialTab = 's
         return;
       }
 
+      if (!result.success) {
+        setError('Something went wrong. Please try again.');
+        setIsLoading(false);
+        return;
+      }
+
       // If registration successful, auto-login
       const email = formData.get('email') as string;
       const password = formData.get('password') as string;
