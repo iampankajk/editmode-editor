@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+
+  /* 1. Light Theme - Optimized for contrast (Slate/Off-white) */
+  :root {
+/* Core */
+    --background: 210 20% 98%;        /* very soft cool white (slate-50) */
+    --foreground: 215 25% 15%;        /* deep slate charcoal */
+    --muted: 210 15% 85%;             /* darker muted for better track visibility */
+    --muted-foreground: 215 15% 45%;
+
+    /* Card / glass surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+    --card-frost: 210 100% 100% / var(--frost-opacity);
+    
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    /* Accent (macOS Blue) */
+    --primary: 213 94% 56%;           /* vivid system blue */
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary (Track backgrounds, buttons) - Darkened for contrast */
+    --secondary: 210 15% 88%;
+    --secondary-foreground: 215 25% 15%;
+
+    /* Destructive */
+    --destructive: 350 90% 58%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Controls */
+    --border: 210 15% 88%;
+    --input: 210 15% 94%;
+    --ring: 213 94% 66%;
+  }
+
+  /* 2. Dark (Zinc) - Optimized for depth */
+  .dark {
+     --background: 220 12% 8%;         /* deep slate */
+     --foreground: 220 12% 96%;        /* near-white */
+      --muted: 220 10% 18%;
+      --muted-foreground: 220 12% 64%;
+
+      --card: 220 10% 12%;               /* frosted surface above bg */
+      --card-foreground: 220 12% 96%;
+      --card-frost: 220 100% 10% / calc(var(--frost-opacity) * 0.7);
+
+      /* Popover */
+      --popover: 220 10% 12%;
+      --popover-foreground: 220 12% 96%;
+
+      /* Accent (slightly brighter blue on dark) */
+      --primary: 213 98% 64%;
+      --primary-foreground: 220 12% 8%;
+
+      --secondary: 220 8% 18%;
+      --secondary-foreground: 220 12% 96%;
+
+      --destructive: 350 76% 50%;
+      --destructive-foreground: 0 0% 100%;
+
+      --border: 220 8% 20%;
+      --input: 220 8% 14%;
+      --ring: 213 98% 72%;
+  }
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "EditMode Editor",
+  "description": "A lightweight, installable PWA video editor featuring timeline editing, media management, and preview capabilities.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
