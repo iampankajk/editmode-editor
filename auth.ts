@@ -5,7 +5,10 @@ import prisma from './lib/prisma';
 import bcrypt from 'bcryptjs';
 import { LoginSchema } from './lib/definitions';
 
+import { authConfig } from './auth.config';
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   providers: [
     Credentials({
       async authorize(credentials) {
@@ -35,24 +38,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  pages: {
-    signIn: '/login',
-  },
-  callbacks: {
-    async session({ session, token }) {
-       if (token?.sub && session.user) {
-         session.user.id = token.sub; // Ensure ID is available
-       }
-       return session;
-    },
-    async jwt({ token, user }) {
-      if (user) {
-        token.sub = user.id;
-      }
-      return token;
-    }
-  },
-  session: {
-    strategy: 'jwt'
-  }
 });
